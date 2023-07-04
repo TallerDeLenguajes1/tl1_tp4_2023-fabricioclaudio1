@@ -13,6 +13,7 @@ void inicializarTareas(Tarea** tareas, Tarea** tareasRealizadas, int cantTareas)
 void cargarTareas(Tarea** tareas, int cantTareas);
 void listarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
 void mostrarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
+void BuscarTarea(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
 
 int main(){
     int cantTareas;
@@ -27,6 +28,7 @@ int main(){
     cargarTareas(tareas, cantTareas);
     listarTareas(tareas, tareasRealizadas, cantTareas);
     mostrarTareas(tareas, tareasRealizadas, cantTareas);
+    BuscarTarea(tareas, tareasRealizadas, cantTareas);
 
     return 0;
 }
@@ -113,5 +115,29 @@ void mostrarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas){
         
     }
 }
+
+void BuscarTarea(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas){
+    int buscar;
+    printf("Ingrese el ID de la tarea que desee encontrar: \n");
+    scanf("%d",&buscar);
+
+    for (int i = 0; i < cantTareas; i++)
+    {
+        if (tareas[i]!=NULL && tareas[i]->TareaID==buscar)
+        {
+            printf("Tarea encontrada: \n");
+            puts(tareas[i]->Descripcion);
+        }
+
+        if (tareas[i]!=NULL && tareasRealizadas[i]->TareaID==buscar)
+        {
+            printf("Tarea encontrada: \n");
+            puts(tareasRealizadas[i]->Descripcion);
+        }
+       
+    }
+    
+}
+
 
 
