@@ -13,7 +13,7 @@ void inicializarTareas(Tarea** tareas, Tarea** tareasRealizadas, int cantTareas)
 void cargarTareas(Tarea** tareas, int cantTareas);
 void listarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
 void mostrarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
-void BuscarTarea(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
+void BuscarTareaPorPalabra(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
 
 void liberarMemoria(Tarea** tareas,Tarea** tareasRealizadas,int cantTareas);
 
@@ -30,7 +30,7 @@ int main(){
     cargarTareas(tareas, cantTareas);
     listarTareas(tareas, tareasRealizadas, cantTareas);
     mostrarTareas(tareas, tareasRealizadas, cantTareas);
-    BuscarTarea(tareas, tareasRealizadas, cantTareas);
+    BuscarTareaPorPalabra(tareas, tareasRealizadas, cantTareas);
 
     liberarMemoria(tareas, tareasRealizadas, cantTareas);
 
@@ -130,7 +130,7 @@ void mostrarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas){
     }
 }
 
-void BuscarTarea(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas){
+void BuscarTareaPorPalabra(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas){
     char *palabra=(char*) malloc(50*sizeof(char));
 
     printf("Ingresa una palabra clave para encontrar alguna tarea: \n");
