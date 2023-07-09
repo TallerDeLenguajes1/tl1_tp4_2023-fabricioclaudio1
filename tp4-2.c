@@ -13,6 +13,9 @@ void inicializarTareas(Tarea** tareas, Tarea** tareasRealizadas, int cantTareas)
 void cargarTareas(Tarea** tareas, int cantTareas);
 void listarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
 void mostrarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
+void BuscarTarea(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
+
+void liberarMemoria(Tarea** tareas,Tarea** tareasRealizadas,int cantTareas);
 
 int main(){
     int cantTareas;
@@ -27,6 +30,9 @@ int main(){
     cargarTareas(tareas, cantTareas);
     listarTareas(tareas, tareasRealizadas, cantTareas);
     mostrarTareas(tareas, tareasRealizadas, cantTareas);
+    BuscarTarea(tareas, tareasRealizadas, cantTareas);
+
+    liberarMemoria(tareas, tareasRealizadas, cantTareas);
 
     return 0;
 }
@@ -53,9 +59,14 @@ void cargarTareas(Tarea** tareas, int cantTareas){
         //Descripcion
         char descrip[200];
         printf("Ingrese la descripcion de tarea Nro %d: \n", i+1);
+        fflush(stdin);
+
+        gets(descrip);
+        /* "gets(descrip)" o lo siguiente:
         fgets(descrip,sizeof(descrip),stdin);
         strtok(descrip, "\n"); // elimina el caracter de nueva línea
-        scanf("%s",&descrip); //va el &?
+        scanf("%s",descrip); //va el &?
+        */
         tareas[i]->Descripcion=malloc((strlen(descrip)+1)*sizeof(char)); //Reservo memoria para la descripcion. El tamaño es igual a 'descrip' + un char más para guardar el caracter de fin de linea
         strcpy(tareas[i]->Descripcion,descrip);
 
@@ -72,9 +83,14 @@ void listarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas){
     {
         puts("---------------");
         printf("ID %d\n",tareas[i]->TareaID);
-        printf("Descripcion %s\n",tareas[i]->Descripcion);
+
+        printf("Descripcion: ");
+        puts(tareas[i]->Descripcion);
+
         printf("Duracion %d\n",tareas[i]->Duracion);
+
         printf("Esta tarea esta realizada? (1:SI, 0:NO)\n");
+        fflush(stdin);
         scanf("%d",&resp);
         if (resp==1)
         {
@@ -114,4 +130,55 @@ void mostrarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas){
     }
 }
 
+void BuscarTarea(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas){
+    char *palabra=(char*) malloc(50*sizeof(char));
 
+    printf("Ingresa una palabra clave para encontrar alguna tarea: \n");
+    fflush(stdin);
+    gets(palabra);
+
+    puts("|Tareas encontradas|");
+    for (int i = 0; i < cantTareas; i++)
+    {
+        if (tareasRealizadas[i]!=NULL)
+        {
+            char *resultado= strstr(tareasRealizadas[i]->Descripcion, palabra);
+            if (resultado!=NULL)
+            {
+                puts("---------------");
+                puts(tareasRealizadas[i]->Descripcion);
+                puts("---------------");
+            }
+
+        }
+    }
+    
+    for (int i = 0; i < cantTareas; i++)
+    {
+        if (tareas[i]!=NULL)
+        {
+            char *resultado= strstr(tareas[i]->Descripcion, palabra);
+            if (resultado!=NULL)
+            {
+                puts("---------------");
+                puts(tareas[i]->Descripcion);
+                puts("---------------");
+            }
+        }
+    }
+
+    free(palabra);
+}
+
+void liberarMemoria(Tarea** tareas,Tarea** tareasRealizadas,int cantTareas){
+
+    free(tareas);
+    free(tareasRealizadas);
+    for (int i = 0; i < cantTareas; i++)
+    {
+        free(tareas[i]);
+        free(tareas[i]->Descripcion);
+        free(tareasRealizadas[i]);
+        free(tareasRealizadas[i]->Descripcion);
+    }  
+}
