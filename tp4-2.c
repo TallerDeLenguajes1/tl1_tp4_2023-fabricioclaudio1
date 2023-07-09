@@ -14,6 +14,7 @@ void cargarTareas(Tarea** tareas, int cantTareas);
 void listarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
 void mostrarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
 void BuscarTareaPorId(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
+void liberarMemoria(Tarea** tareas,Tarea** tareasRealizadas,int cantTareas);
 
 int main(){
     int cantTareas;
@@ -29,6 +30,7 @@ int main(){
     listarTareas(tareas, tareasRealizadas, cantTareas);
     mostrarTareas(tareas, tareasRealizadas, cantTareas);
     BuscarTareaPorId(tareas, tareasRealizadas, cantTareas);
+    liberarMemoria(tareas, tareasRealizadas, cantTareas);
 
     return 0;
 }
@@ -139,5 +141,16 @@ void BuscarTareaPorId(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas){
     
 }
 
+void liberarMemoria(Tarea** tareas,Tarea** tareasRealizadas,int cantTareas){
 
+    free(tareas);
+    free(tareasRealizadas);
+    for (int i = 0; i < cantTareas; i++)
+    {
+        free(tareas[i]);
+        free(tareas[i]->Descripcion);
+        free(tareasRealizadas[i]);
+        free(tareasRealizadas[i]->Descripcion);
+    }  
+}
 
