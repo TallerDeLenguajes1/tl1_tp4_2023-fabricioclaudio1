@@ -13,7 +13,9 @@ void inicializarTareas(Tarea** tareas, Tarea** tareasRealizadas, int cantTareas)
 void cargarTareas(Tarea** tareas, int cantTareas);
 void listarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
 void mostrarTareas(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
+
 void BuscarTareaPorPalabra(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
+void BuscarTareaPorId(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas);
 
 void liberarMemoria(Tarea** tareas,Tarea** tareasRealizadas,int cantTareas);
 
@@ -30,7 +32,9 @@ int main(){
     cargarTareas(tareas, cantTareas);
     listarTareas(tareas, tareasRealizadas, cantTareas);
     mostrarTareas(tareas, tareasRealizadas, cantTareas);
+
     BuscarTareaPorPalabra(tareas, tareasRealizadas, cantTareas);
+    BuscarTareaPorId(tareas, tareasRealizadas, cantTareas);
 
     liberarMemoria(tareas, tareasRealizadas, cantTareas);
 
@@ -168,6 +172,29 @@ void BuscarTareaPorPalabra(Tarea** tareas,Tarea** tareasRealizadas, int cantTare
     }
 
     free(palabra);
+}
+
+ void BuscarTareaPorId(Tarea** tareas,Tarea** tareasRealizadas, int cantTareas){
+    int buscar;
+    printf("Ingrese el ID de la tarea que desee encontrar: \n");
+    scanf("%d",&buscar);
+
+    for (int i = 0; i < cantTareas; i++)
+    {
+        if (tareas[i]!=NULL && tareas[i]->TareaID==buscar)
+        {
+            printf("Tarea encontrada: \n");
+            puts(tareas[i]->Descripcion);
+        }
+
+        if (tareas[i]!=NULL && tareasRealizadas[i]->TareaID==buscar)
+        {
+            printf("Tarea encontrada: \n");
+            puts(tareasRealizadas[i]->Descripcion);
+        }
+       
+    }
+    
 }
 
 void liberarMemoria(Tarea** tareas,Tarea** tareasRealizadas,int cantTareas){
